@@ -6,10 +6,9 @@
         Promise Sample!
         </span>
             <div slot="body">
-                <button @click="fetch" class="btn btn-primary">
-                    <i v-if="nowLoading" class="fa fa-refresh  fa-spin"></i>
-                    Fetch
-                </button>
+                <i v-if="nowLoading" class="fa fa-refresh  fa-spin"></i>
+                <button @click="serialFetch" class="btn btn-primary">直列</button>
+                <button @click="parallelFetch" class="btn btn-primary">並列</button>
                 <button @click="clear" class="btn btn-success">Clear</button>
             </div>
         </v-card>
@@ -108,7 +107,7 @@
       };
     },
     methods: {
-      fetch() {
+      serialFetch() {
         this.nowLoading = true;
 
         // 直列
@@ -127,6 +126,34 @@
             .then((otherContentsResponse) => {
               this.otherContents = otherContentsResponse.data;
             }))
+          .catch((error) => {
+            this.errorMessage = error.message;
+          })
+          .then(() => {
+            this.nowLoading = false;
+          });
+      },
+      parallelFetch() {
+        this.nowLoading = true;
+
+        // 並列
+        Promise.all([
+          getJSON('/static/sample01.json')
+          .then((contentResponse) => {
+            const data = contentResponse.data;
+            this.title = data.title;
+            this.mainImageUrl = data.mainImageUrl;
+            this.caption = data.caption;
+          }),
+          getJSON('/static/plan01.json')
+            .then((planResponse) => {
+              this.plans = planResponse.data;
+            }),
+          getJSON('/static/otherContents01.json')
+            .then((otherContentsResponse) => {
+              this.otherContents = otherContentsResponse.data;
+            }),
+        ])
           .catch((error) => {
             this.errorMessage = error.message;
           })
