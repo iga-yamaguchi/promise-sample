@@ -22,6 +22,16 @@
       >
         <ul class="navbar-nav mr-auto">
           <router-link
+            :to="{ name: 'content.index' }"
+            active-class="active"
+            class="nav-item"
+            tag="li"
+          >
+            <a class="nav-link">
+              Content
+            </a>
+          </router-link>
+          <router-link
             :to="{ name: 'home.index' }"
             active-class="active"
             class="nav-item"

@@ -6,6 +6,12 @@
  */
 
 export default [
+  // Content
+  {
+    path: '/content',
+    name: 'content.index',
+    component: () => import('@/pages/Content/Index'),
+  },
   // Home
   {
     path: '/home',

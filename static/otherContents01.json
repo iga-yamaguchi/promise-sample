@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "title": "旅館02",
+      "mainImageUrl": "/static/旅館02.jpg",
+      "caption": "02温泉"
+    },
+    {
+      "title": "旅館03",
+      "mainImageUrl": "/static/旅館03.jpg",
+      "caption": "03温泉"
+    },
+    {
+      "title": "旅館04",
+      "mainImageUrl": "/static/旅館04.jpg",
+      "caption": "04温泉"
+    },
+    {
+      "title": "旅館05",
+      "mainImageUrl": "/static/旅館05.jpg",
+      "caption": "05温泉"
+    }
+  ]
+}
