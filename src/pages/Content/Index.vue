@@ -111,29 +111,28 @@
       fetch() {
         this.nowLoading = true;
 
-        getJSON('/static/sample01.json').then((contentResponse) => {
-          const data = contentResponse.data;
-          this.title = data.title;
-          this.mainImageUrl = data.mainImageUrl;
-          this.caption = data.caption;
-
-          getJSON('/static/plan01.json').then((planResponse) => {
-            this.plans = planResponse.data;
-          }).catch((error) => {
+        // 直列
+        getJSON('/static/sample01.json')
+          .then((contentResponse) => {
+            const data = contentResponse.data;
+            this.title = data.title;
+            this.mainImageUrl = data.mainImageUrl;
+            this.caption = data.caption;
+          })
+          .then(() => getJSON('/static/plan01.json')
+            .then((planResponse) => {
+              this.plans = planResponse.data;
+            }))
+          .then(() => getJSON('/static/otherContents01.json')
+            .then((otherContentsResponse) => {
+              this.otherContents = otherContentsResponse.data;
+            }))
+          .catch((error) => {
             this.errorMessage = error.message;
+          })
+          .then(() => {
+            this.nowLoading = false;
           });
-
-          getJSON('/static/otherContents01.json').then((otherContentsResponse) => {
-            this.otherContents = otherContentsResponse.data;
-          }).catch((error) => {
-            this.errorMessage = error.message;
-          });
-
-          this.nowLoading = false;
-        }).catch((error) => {
-          this.errorMessage = error.message;
-          this.nowLoading = false;
-        });
       },
       clear() {
         this.title = '';
